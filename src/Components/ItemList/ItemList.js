@@ -6,6 +6,7 @@ import Spinner from '../Spinner'
 import './item-list.css'
 
 export default class ItemList extends Component {
+
   swapiSerive = new SwapiService()
 
   state = { 
@@ -23,7 +24,6 @@ export default class ItemList extends Component {
   renderItems = (arr) => {
     return arr.map(({id, name})=>{
       return(
-
         <li className="list-group-item"
             key={id}
             onClick={()=>this.props.onItemSelected(id)}>
@@ -31,7 +31,6 @@ export default class ItemList extends Component {
         </li>
       )
     })
-
   }
   
   render() {
