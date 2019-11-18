@@ -11,7 +11,6 @@ export default class App extends Component {
   
   state = {
     showRandomPlanet : false,
-    // selectedPerson: null
     selectedPerson: null
    }
   
@@ -42,6 +41,7 @@ export default class App extends Component {
 
         <div className="toggle_button">
           <button onClick={this.toggleRandomPlanet} className="btn btn-secondary">Toggle random planet</button>
+          <button onClick={this.throwError} className="btn btn-danger">Throw ERROR</button>
         </div>
 
         <div className="row mb2">

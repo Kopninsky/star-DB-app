@@ -8,7 +8,8 @@ export default class PersonDetails extends Component {
   swapiService = new SwapiService ()
   
   state = {
-    person: null
+    person: null,
+    loading: true
   }
 
   componentDidMount(){
@@ -17,6 +18,7 @@ export default class PersonDetails extends Component {
 
   componentDidUpdate(prevProps){
     if(this.props.personId !== prevProps.personId) {
+      console.log('run spinner');
       this.updatePerson()
     }
   }
@@ -34,20 +36,19 @@ export default class PersonDetails extends Component {
   }
 
   render() {
-    const { person } = this.state
+    const { loading, person } = this.state
     
     if (!person) {
       return <span>Select a person from a list</span>;
     }
 
     const { id, name, gender, birthYear, eyeColor } = person
-
+    const spinner = loading ?  <Spinner/> : null
     return (
       <div className="person-details card">
         <img className="person-image"
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
           alt="alt"/>
-
         <div className="card-body">
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
