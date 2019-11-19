@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 
 import './person-details.css'
+
 import SwapiService from '../../services'
 import Spinner from '../Spinner'
+import ErrorButton from '../ErrorButon'
 
 export default class PersonDetails extends Component {
   swapiService = new SwapiService ()
@@ -43,7 +45,9 @@ export default class PersonDetails extends Component {
     }
 
     const { id, name, gender, birthYear, eyeColor } = person
+    
     const spinner = loading ?  <Spinner/> : null
+
     return (
       <div className="person-details card">
         <img className="person-image"
@@ -63,6 +67,9 @@ export default class PersonDetails extends Component {
             <li className="list-group-item">
               <span className="term">Eye Color</span>
               <span>{eyeColor}</span>
+            </li>
+            <li className="list-group-item">
+                <ErrorButton/>
             </li>
           </ul>
         </div>

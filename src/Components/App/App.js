@@ -1,21 +1,27 @@
 import React, { Component } from 'react'
 
+import Header from '../Header'
+import RandomPlanet from '../RandomPlanet'
+import PeoplePage from '../PeoplePage'
+import ErrorButton from '../ErrorButon'
+import ErrorIndicator from '../ErrorIndicator'
+import PlanetsPage from '../PlanetsPage'
+import StarshipsPage from '../StarshipsPage'
+
+import SwapiService from '../../services'
+
 import './app.css'
 
-import Header from '../Header'
-import ItemList from '../ItemList'
-import PersonDetails from '../PersonDetails'
-import RandomPlanet from '../RandomPlanet'
-
 export default class App extends Component {
+
+  swapiService = new SwapiService()
   
   state = {
     showRandomPlanet : false,
-    selectedPerson: null
+    hasError: false
    }
   
   toggleRandomPlanet = () => {
-
     this.setState((state) => {
       return {
         showRandomPlanet: !state.showRandomPlanet
@@ -23,39 +29,30 @@ export default class App extends Component {
     })
    }
 
-  onItemSelected = (id) => {
-     this.setState({
-       selectedPerson: id
-     })
+  componentDidCatch() {
+    this.setState({hasError : true})
    }
 
   render() {
+    if(this.state.hasError){
+      return <ErrorIndicator/>
+    }
+
     const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null
 
     return (
       <div className="container stardb-app">
-
         <Header />
-
         {planet}
-
         <div className="toggle_button">
-          <button onClick={this.toggleRandomPlanet} className="btn btn-secondary">Toggle random planet</button>
-          <button onClick={this.throwError} className="btn btn-danger">Throw ERROR</button>
+          <button onClick={this.toggleRandomPlanet} className="btn btn-secondary">
+            Toggle random planet
+          </button>
+          <ErrorButton/>
         </div>
-
-        <div className="row mb2">
-
-          <div className="col-md-6">
-            <ItemList onItemSelected={this.onItemSelected}/>
-          </div>
-
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson}/>
-          </div>
-
-        </div>
-
+        <PeoplePage/>
+        {/* <PlanetPage/> */}
+        {/* <StarshipsPage/> */}
       </div>
     )
   }
