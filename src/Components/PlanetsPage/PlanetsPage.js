@@ -1,10 +1,35 @@
 import React, { Component } from 'react'
 
 import ItemList from '../ItemList'
-import PersonDetails from '../PersonDetails'
+import ItemDetails from '../ItemDetails'
+import ErrorIndicator from '../ErrorIndicator'
+import SwapiService from '../../services'
 
 export default class PlanetsPage extends Component {
+  swapiService = new SwapiService()
+
+  state = {
+    selectedPerson : null,
+    hasError: false
+  }
+
+  componentDidCatch() {
+    this.setState({hasError : true})
+
+  }
+
+  onItemSelected = (selectedPerson) => {
+    this.setState({
+      selectedPerson
+    })
+  }
+
   render() {
+
+    if(this.state.hasError){
+      return <ErrorIndicator/>
+    }
+
     return (
       <div className="row mb2">
         <div className="col-md-6">
@@ -14,7 +39,7 @@ export default class PlanetsPage extends Component {
             renderItem = {(item) => (<span> {item.name} </span>)} />
         </div>
         <div className="col-md-6">
-          <PersonDetails personId={this.state.selectedPerson} />
+          <ItemDetails personId={this.state.selectedPerson} />
         </div>
       </div>
     )
