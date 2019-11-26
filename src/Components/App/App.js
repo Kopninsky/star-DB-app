@@ -70,7 +70,7 @@ export default class App extends Component {
 
           <Row 
             left={personDetails} 
-            rigth={starshipDetails} />
+            right={starshipDetails} />
 
           {/* <PlanetsPage/> */}
           {/* <StarshipsPage/> */}
