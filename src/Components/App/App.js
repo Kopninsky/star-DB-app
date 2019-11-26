@@ -4,13 +4,12 @@ import Header from '../Header'
 import RandomPlanet from '../RandomPlanet'
 import PeoplePage from '../PeoplePage'
 import ErrorButton from '../ErrorButon'
-import PlanetsPage from '../PlanetsPage'
-import StarshipsPage from '../StarshipsPage'
-
+// import PlanetsPage from '../PlanetsPage'
+// import StarshipsPage from '../StarshipsPage' 
 import Row from '../Row'
-import ItemDetails from '../ItemDetails'
-import SwapiService from '../../services'
+import ItemDetails, { Record } from '../ItemDetails'
 import ErrorBoundry from '../ErrorBoundry'
+import SwapiService from '../../services'
 
 import './app.css'
 
@@ -37,19 +36,26 @@ export default class App extends Component {
     const personDetails = (
       <ErrorBoundry>
         <ItemDetails 
-          itemId={11}
+          itemId={15}
           getData={getPerson}
-          getImageUrl={getPersonImage}
-        />
+          getImageUrl={getPersonImage}>
+          <Record field="gender" label="Gender"/>
+          <Record field="eyeColor" label="Eye color"/>
+        </ItemDetails>
       </ErrorBoundry>
     )
 
     const starshipDetails = (
-      <ItemDetails 
-        itemId={15}
-        getData={getStarship}
-        getImageUrl={getStarshipImage}
-      />
+      <ErrorBoundry>
+        <ItemDetails 
+          itemId={13}
+          getData={getStarship}
+          getImageUrl={getStarshipImage}>
+          <Record field="model" label="Model"/>
+          <Record field="length" label="Length"/>
+          <Record field="costInCredits" label="Cost"/>
+        </ItemDetails>
+      </ErrorBoundry>
     )
     
     return (
