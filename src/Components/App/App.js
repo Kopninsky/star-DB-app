@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 
 import Header from '../Header'
 import RandomPlanet from '../RandomPlanet'
-import PeoplePage from '../PeoplePage'
 import ErrorButton from '../ErrorButon'
-// import PlanetsPage from '../PlanetsPage'
-// import StarshipsPage from '../StarshipsPage' 
-import Row from '../Row'
-import ItemDetails, { Record } from '../ItemDetails'
 import ErrorBoundry from '../ErrorBoundry'
 import SwapiService from '../../services'
+import { 
+  PersonList,
+  PlanetList,
+  StarshipList } from '../SW-components/ItemLists'
+import {
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails
+  } from '../SW-components/Details'
 
 import './app.css'
 
@@ -31,33 +35,7 @@ export default class App extends Component {
 
   render() {
     const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null
-    const {getPerson, getStarship, getPersonImage, getStarshipImage} = this.swapiService
 
-    const personDetails = (
-      <ErrorBoundry>
-        <ItemDetails 
-          itemId={15}
-          getData={getPerson}
-          getImageUrl={getPersonImage}>
-          <Record field="gender" label="Gender"/>
-          <Record field="eyeColor" label="Eye color"/>
-        </ItemDetails>
-      </ErrorBoundry>
-    )
-
-    const starshipDetails = (
-      <ErrorBoundry>
-        <ItemDetails 
-          itemId={13}
-          getData={getStarship}
-          getImageUrl={getStarshipImage}>
-          <Record field="model" label="Model"/>
-          <Record field="length" label="Length"/>
-          <Record field="costInCredits" label="Cost"/>
-        </ItemDetails>
-      </ErrorBoundry>
-    )
-    
     return (
       <div className="container stardb-app">
         <ErrorBoundry>
@@ -72,15 +50,13 @@ export default class App extends Component {
             <ErrorButton/>
           </div>
 
-          <PeoplePage/>
+          <PersonDetails itemId={11}/>
+          <PlanetDetails itemId={11}/>
+          <StarshipDetails itemId={11}/>
+          <PersonList/>
+          <PlanetList/>
+          <StarshipList/>
 
-          <Row 
-            left={personDetails} 
-            right={starshipDetails} />
-
-          {/* <PlanetsPage/> */}
-          {/* <StarshipsPage/> */}
-          
         </ErrorBoundry>
       </div>
     )
